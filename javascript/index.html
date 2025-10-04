@@ -59,27 +59,24 @@
       <div class="choose-box">
         <i class="fas fa-car-crash"></i>
         <h3>Best Price In An Instant</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, velit, eum, delectus aliquid dolore numquam
-          dolorem assumenda nisi nemo.</p>
+        <p>Get the best value for your scrap car in just a few clicks! Our instant price calculator ensures you receive the most competitive offer based on real market rates — quick, fair, and transparent.</p>
       </div>
 
       <div class="choose-box">
         <i class="fas fa-hand-holding-usd"></i>
         <h3>Official Paperwork Sorted</h3>
-        <p>We offer youthe best price for your car. It’s a promise!</p>
+        <p>No stress, no confusion! We handle all RTO documentation and legal formalities for you. From deregistration to ownership transfer — we’ve got it covered</p>
       </div>
 
       <div class="choose-box">
         <i class="fas fa-hand-holding-usd"></i>
         <h3>Drop Your Car Off Locally</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, velit, eum, delectus aliquid dolore numquam
-          dolorem assumenda nisi nemo.</p>
+        <p>Convenient and hassle-free! You can drop your car at our nearby collection center or schedule a free pickup right from your location — whichever suits you best.</p>
       </div>
       <div class="choose-box">
         <i class="fas fa-truck"></i>
-        <h3>Scrap Car Collection</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, velit, eum, delectus aliquid dolore numquam
-          dolorem assumenda nisi nemo.</p>
+        <h3>Quick & Secure Payment</h3>
+        <p>Get paid instantly through your preferred mode of payment — no waiting, no delays. We ensure a smooth and secure transaction every single time.</p>
       </div>
   </section>
  
@@ -211,9 +208,9 @@
       </div>
       <div class="footer-box">
         <h3>Contact</h3>
-        <p>Email: info@yourdomain.com</p>
+        <p>Email:Carzvaluee@gmail.com</p>
         <p>Phone: +91 9599330532</p>
-        <p>Location:MVL I PARK Sector 15 Part 2 Gurugram Haryana 122001 , India</p>
+        <p>Location : MVL I PARK Sector 15 Part 2 Gurugram Haryana 12200, India</p>
       </div>
       <div class="footer-box">
         <h3>Follow Us</h3>
@@ -269,6 +266,9 @@
       function(response) {
         successMsg.textContent = "✅ Quote sent successfully!";
         console.log("SUCCESS!", response.status, response.text);
+
+        // ✅ Clear the form fields after success
+        e.target.reset();
       },
       function(error) {
         errorMsg.textContent = "❌ Failed to send. Please try again.";
@@ -277,6 +277,7 @@
     );
   });
 </script>
+
 
 
 </body>
