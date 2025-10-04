@@ -35,12 +35,19 @@
       <a href="#" class="btn">Learn About Us</a>
     </div>
     <!---form-box-->
-    <div class="form-box">
-      <h2>Get your FREE instant online car valuation</h2>
-      <input type="text" placeholder="Name">
-      <input type="text" placeholder="Number">
-      <button>Get My Quote Now</button>
-    </div>
+  <div class="form-box">
+  <h2>Get your FREE instant online car valuation</h2>
+  <form id="quoteForm">
+    <input type="text" id="name" placeholder="Name" required />
+    <input type="text" id="number" placeholder="Number" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <button type="submit">Get My Quote Now</button>
+    <!-- Error message will show here -->
+    <div id="errorMsg" style="color:red; margin-top:10px; font-size:14px;"></div>
+    <!-- Success message -->
+    <div id="successMsg" style="color:green; margin-top:10px; font-size:14px;"></div>
+  </form>
+</div>
   </section>
 
 
@@ -215,5 +222,62 @@
     </div>
     <div class="footer-bottom"> &copy; 2025 Your Website. All rights reserved. </div>
   </footer>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  // Initialize EmailJS
+  (function(){
+    emailjs.init("5QYX6Xjb0E73vZbXK"); // <-- Your Public Key
+  })();
+
+  // Handle form submit
+  document.getElementById("quoteForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Get values separately
+    const name = document.getElementById("name").value.trim();
+    const number = document.getElementById("number").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
+    errorMsg.textContent = "";
+    successMsg.textContent = "";
+
+    // ✅ Validation: Check 10-digit number
+    const numberPattern = /^\d{10}$/; 
+    if (!numberPattern.test(number)) {
+      errorMsg.textContent = "Please enter a valid 10-digit phone number.";
+      return;
+    }
+
+    // Create object with values
+    const templateParams = {
+      from_name: name,
+      from_number: number,
+      from_email: email,
+      to_name: "CarZValue",
+      to_email: "Carzvaluee@gmail.com"
+    };
+
+    // Send email with object
+    emailjs.send("service_8ptr2pt", "template_j1irnxy", templateParams)
+    .then(
+      function(response) {
+        successMsg.textContent = "✅ Quote sent successfully!";
+        console.log("SUCCESS!", response.status, response.text);
+      },
+      function(error) {
+        errorMsg.textContent = "❌ Failed to send. Please try again.";
+        console.error("FAILED...", error);
+      }
+    );
+  });
+</script>
+
+
 </body>
 </html>
