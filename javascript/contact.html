@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get an Instant Quote</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px 30px;
+      width: 350px;
+      text-align: center;
+    }
+
+    .form-container h2 {
+      color: #222;
+      margin-bottom: 5px;
+    }
+
+    .form-container p {
+      color: #555;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      color: #333;
+      font-weight: 500;
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #ff3b30;
+      box-shadow: 0 0 5px rgba(255, 59, 48, 0.3);
+    }
+
+    button {
+      width: 100%;
+      background-color: #ff3b30;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #e63227;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Get an Instant Quote</h2>
+    <p>Fill out the form for the best price.</p>
+
+    <form id="quoteForm">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Name" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Email" required />
+
+      <label for="location">Your Location</label>
+      <input type="text" id="location" name="location" placeholder="Gurugram Haryana" required />
+
+      <button type="submit">Get My Free Quote</button>
+    </form>
+
+    <p id="status"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('quoteForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const location = document.getElementById('location').value.trim();
+
+      // ✅ Phone validation (10 digits only)
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!phoneRegex.test(phone)) {
+        status.textContent = "❌ Phone number should be exactly 10 digits!";
+        status.style.color = "red";
+        return;
+      }
+
+      // ✅ Initialize EmailJS
+      (function() {
+        emailjs.init("5QYX6Xjb0E73vZbXK"); // Your Public Key
+      })();
+
+      // ✅ Template data
+      const templateParams = {
+        from_name: name,
+        from_number: phone,
+        from_email: email,
+        from_location: location,
+        to_name: "CarzValue",
+        to_email: "Carzvaluee@gmail.com"
+      };
+
+      // ✅ Send email using EmailJS
+      status.textContent = "⏳ Sending your quote request...";
+      status.style.color = "#555";
+
+      emailjs.send('service_8ptr2pt', 'template_j1irnxy', templateParams)
+        .then(() => {
+          status.textContent = "✅ Email sent successfully! Redirecting...";
+          status.style.color = "green";
+          form.reset();
+
+          // ✅ Redirect after short delay (2 seconds)
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 2000);
+        })
+        .catch((error) => {
+          status.textContent = "❌ Failed to send email. Please try again.";
+          status.style.color = "red";
+          console.error("EmailJS Error:", error);
+        });
+    });
+  </script>
+</body>
+</html>
